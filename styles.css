@@ -1,0 +1,296 @@
+:root{
+  /* COLORS */
+  --color: #ffffff;
+  --dark-color: #131313;
+  --light-color: #e7e7e7;
+  --dark-todo-back: #252525;
+  --light-todo-back: #ffffff;
+  --active-color: #0059ff;
+  --light-text-color: #202020;
+  --dark-text-color: #e7e7e7;
+  --hover-color: #2c2c2c;
+  --checked-color: #535353a8;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: var(--light-color);
+}
+
+/*------ Nav Items ------*/
+nav {
+  background-image: url(./images/bg-desktop-light.jpg);
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.nav-item {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: -70px;
+}
+.nav-item h2{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 36px;
+  color: var(--color);
+  padding-top: 10px;
+  display: inline-block;
+  cursor: default;
+}
+.mode{
+  margin-left: 350px;
+  display: inline-block;
+  padding-top: 10px;
+  cursor: pointer;
+}
+.mode-img{
+  color: var(--color);
+  font-size: 1.3rem;
+}
+
+/* --- To Do Container --- */
+.todo_container {
+  position: relative;
+  height: fit-content;
+  margin: -130px auto 0;
+  max-width: 530px;
+  padding: 5px;
+}
+
+.todo_input{
+  position: absolute;
+  top: 5px;
+  background-color: var(--color);
+  height: fit-content;
+  width: 100%;
+	display: flex;
+	padding: 2px 0;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding-left: 20px;
+}
+#input{
+	width: 90%;
+	color: var(--light-text-color);
+	border:none;
+  outline: none;
+	background: transparent;
+	padding: 12px;
+  padding-left: 10px;
+	font-size: 17px;
+  flex: 1;
+}
+#input-check{
+  cursor: default;
+  width: 20px;
+}
+.item_container{
+  background-color: var(--color);
+  height: fit-content;
+  max-width: 530px;
+  width: 100%;
+  margin-top: 90px;
+  border-radius: 5px;
+}
+button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--hover-color);
+  padding: 10px;
+  padding-left: 10px;
+}
+button:active{
+  color: var(--active-color);
+}
+button:hover{
+  color: #000000;
+  font-size: 14px;
+}
+#item-count{
+  margin-right: 120px;
+  cursor: default;
+  color: var(--checked-color);
+}
+
+ul li{
+  list-style: none;
+  font-size: 17px;
+  padding: 12px 8px 12px 50px;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  color: var(--dark-color);
+  border-bottom: 0.5px solid var(--checked-color);
+}
+ul li::before{
+  content: '';
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-image: url(./images/unchecked.png);
+  background-size: cover;
+  background-position: center;
+  top: 12px;
+  left: 8px;
+}
+ul li.checked{
+  color: var(--checked-color);
+  text-decoration: line-through;
+}
+ul li.checked::before{
+  background-image: url(./images/checked.png);
+}
+ul li span{
+  position: absolute;
+  right: 9px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  font-size: 28px;
+  line-height: 35px;
+  text-align: center;
+  color: var(--dark-color);
+  border-radius: 50%;
+}
+
+.filters {
+  background-color: var(--color);
+  width: 100%;
+  height: fit-content;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+}
+
+#filter-text{
+  margin: 10px 160px 30px;
+  padding-top: 25px;
+  color: var(--checked-color);
+  width: 100%;
+  cursor: default;
+}
+
+/*--- mobile view ---*/
+@media (min-width: 375px) and (min-height: 730px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav {
+    background-image: url(/images/bg-mobile-light.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 100%;
+  }
+  .todo_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    margin: -180px auto 0;
+  }
+  
+  .nav-item {
+    padding-top: 2px;
+    display: inline-block;
+    cursor: default;
+    margin-top: -120px;
+  }
+
+  .nav-item h2{
+    font-size: 27px;
+  }
+  .mode{
+  margin-left: 200px;
+  display: inline-block;
+  padding-top: 2px;
+  cursor: pointer;
+}
+  
+  .item_container {
+    width: 100%;
+    margin-top: 90px;
+    border-radius: 5px
+  }
+  
+  .filters {
+    margin: 0 auto;
+    padding: 0.5px;
+  }
+  
+  button {
+    padding: 5px;
+    padding-left: 1px;
+  } 
+  
+  #item-count{
+    margin-right: 5px;
+    padding-left: 2px;
+
+  }
+
+  #filter-text{
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    padding-left: 60px;
+  }
+}
+
+
+/* --- DARK MODE ---*/
+body.darkmode{
+  color: var(--dark-text-color);
+  background-color: var(--dark-color);
+}
+.darkmode nav{
+  background-image: url(./images/bg-desktop-dark.jpg);
+  background-repeat: no-repeat;
+}
+.darkmode .todo_input, .darkmode .item_container, .darkmode .filters{
+  color: var(--dark-text-color);
+  background-color: var(--dark-todo-back);
+}
+.darkmode ul li, .darkmode ul li span{
+  color: var(--dark-text-color);
+}
+.darkmode button{
+  color: var(--checked-color);
+}
+.darkmode button:hover{
+  color: var(--dark-text-color);
+}
+.darkmode #input{
+  color: var(--dark-text-back);
+}
+
+@media (min-width: 375px) and (min-height: 730px) {
+
+  .darkmode nav {
+    background-image: url(/images/bg-mobile-dark.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 100%;
+  }
+}
