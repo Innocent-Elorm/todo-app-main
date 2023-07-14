@@ -92,7 +92,8 @@ function updateItemCount() {
 }
 
 function clearCompletedTasks() {
-  const completedTasks = completed.querySelectorAll("li.checked");
+  const completedTasks = active.querySelectorAll("li.checked");
+
   completedTasks.forEach(task => {
     task.remove();
   });
@@ -103,9 +104,8 @@ function clearCompletedTasks() {
 
 clearBtn.addEventListener('click', function () {
   clearCompletedTasks();
-  saveTask();
-  updateItemCount();
 });
+
 
 function filterTasks(type) {
   const tasks = active.querySelectorAll("li");
