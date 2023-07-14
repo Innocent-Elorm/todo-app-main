@@ -52,6 +52,9 @@ function addList(e) {
   if (input.value.trim() !== '') {
     newLi.textContent = input.value.trim();
     input.value = '';
+
+    newLi.draggable = true;
+
     active.appendChild(newLi);
     let span = document.createElement("span");
     span.innerHTML = "\u00d7";
@@ -87,7 +90,6 @@ function updateItemCount() {
   const activeTasks = active.querySelectorAll("li:not(.checked)");
   itemCount.textContent = `${activeTasks.length} item${activeTasks.length === 1 ? '' : 's'} left`;
 }
-
 
 function clearCompletedTasks() {
   const completedTasks = completed.querySelectorAll("li.checked");
@@ -147,3 +149,44 @@ loadTask();
 updateItemCount();
 filterTasks("all");
 
+
+let dragItem = null;
+
+active.addEventListener('dragstart', function (e) {
+  dragItem = e.target;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', dragItem.innerHTML);
+  dragItem.classList.add('dragging');
+});
+
+active.addEventListener('dragover', function (e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const afterElement = getDragAfterElement(active, e.clientY);
+  const draggable = document.querySelector('.dragging');
+  if (afterElement == null) {
+    active.appendChild(draggable);
+  } else {
+    active.insertBefore(draggable, afterElement);
+  }
+});
+
+active.addEventListener('dragend', function (e) {
+  dragItem.classList.remove('dragging');
+  saveTask();
+});
+
+
+function getDragAfterElement(container, y) {
+  const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
