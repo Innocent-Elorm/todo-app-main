@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do App</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" 
-  integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" 
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-  <!-- Navigation Bar-->
-  <nav>
-    <div class="nav-item">
-      <h2>T O D O</h2>
-      <div class="mode">
-        <i class="mode-img fa-solid"></i>
+    <title>To-Do App</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <!-- Navigation Bar-->
+    <nav>
+      <img src="./images/bg-desktop-light.jpg" alt="nav-bg-image">
+      <div class="nav-item">
+        <h2>T O D O</h2>
+        <div class="mode">
+          <i class="mode-img fa-solid"></i>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- To DO content-->
-  <div class="todo_container">
-    <div class="todo_input">
-      <input type="radio" id="input-check" disabled>
-      <input type="text" placeholder="Create a new todo....." id="input">
-    </div>
+    <main>
+      <!-- To DO content-->
+      <div class="todo_container">
+        <div class="todo_input">
+          <input type="radio" id="input-check" disabled>
+          <input type="text" placeholder="Create a new todo....." id="input">
+        </div>
 
-    <div class="item_container all">
-      <ul id="active">
-       
-      </ul>
-    
-      <ul id="completed">
-       
-      </ul>
-    </div>
+        <div class="item_container all">
+          <ul id="active">
 
-    <div class="filters">
-      <h5 for="items-count" id="item-count"></h5>
-      <button id="all-btn">All</button>
-      <button id="active-btn">Active</button>
-      <button id="com-btn">completed</button>
-      <button id="clr-btn">Clear Completed</button>
-    </div>
+          </ul>
 
-    <h5 id="filter-text">Drag and drop to reorder list</h5>
-  </div>
-</body>
+          <ul id="completed">
 
-<script src="script.js"></script>
+          </ul>
+        </div>
+
+        <div class="filters">
+          <h5 for="items-count" id="item-count"></h5>
+          <button class="one" id="all-btn">All</button>
+          <button class="one" id="active-btn">Active</button>
+          <button class="one" id="com-btn">completed</button>
+          <button id="clr-btn">Clear Completed</button>
+        </div>
+
+        <h5 id="filter-text">Drag and drop to reorder list</h5>
+      </div>
+    </main>
+  </body>
+
+  <script src="script.js"></script>
 </html>

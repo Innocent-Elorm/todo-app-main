@@ -13,11 +13,14 @@ function load() {
   if (!darkmode) {
     store(false);
     icon.classList.add('fa-moon');
+    ButtonFocus();
   } else if (darkmode === 'true') {
     body.classList.add('darkmode');
     icon.classList.add('fa-sun');
+    ButtonFocus();
   } else if (darkmode === 'false') {
     icon.classList.add('fa-moon');
+    ButtonFocus();
   }
 }
 load()
@@ -56,9 +59,10 @@ function addList(e) {
     newLi.draggable = true;
 
     active.appendChild(newLi);
-    let span = document.createElement("span");
-    span.innerHTML = "\u00d7";
-    newLi.appendChild(span);
+    const deleteIcon = document.createElement('span');
+    deleteIcon.innerHTML = '<i class="fas fa-times"></i>';
+    deleteIcon.classList.add('delete-icon');
+    newLi.appendChild(deleteIcon);
 
     saveTask();
     updateItemCount();
@@ -66,16 +70,21 @@ function addList(e) {
 }
 
 active.addEventListener('click', function (e) {
-  if (e.target.tagName === "LI") {
+  if (e.target.tagName === ("LI")) {
     e.target.classList.toggle("checked");
     saveTask();
     updateItemCount();
-  } else if (e.target.tagName === "SPAN") {
+  } else if (e.target.tagName === "SPAN" && !e.target.classList.contains("delete-icon")) {
+    e.target.parentElement.classList.toggle("checked");
+    saveTask();
+    updateItemCount();
+  } else if (e.target.tagName === "SPAN" && e.target.classList.contains("delete-icon")) {
     e.target.parentElement.remove();
     saveTask();
     updateItemCount();
   }
 }, false);
+
 
 function saveTask() {
   localStorage.setItem('data', active.innerHTML);
@@ -190,3 +199,22 @@ function getDragAfterElement(container, y) {
     }
   }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
+
+function ButtonFocus() {
+  document.getElementById("all-btn").focus();
+}
+
+let focusedElement = null;
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+filterButtons.forEach(button => {
+  button.addEventListener("focus", function(event) {
+    focusedElement = event.target;
+  });
+});
+
+document.addEventListener("click", function(event) {
+  if (focusedElement && event.target !== focusedElement) {
+    focusedElement.focus();
+  }
+});

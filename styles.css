@@ -8,7 +8,7 @@
   --active-color: #0059ff;
   --light-text-color: #202020;
   --dark-text-color: #e7e7e7;
-  --hover-color: #2c2c2c;
+  --hover-color: #4d3636;
   --checked-color: #535353a8;
 }
 *{
@@ -18,35 +18,43 @@
 }
 body{
   background-color: var(--light-color);
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-/*------ Nav Items ------*/
-nav {
-  background-image: url(./images/bg-desktop-light.jpg);
-  background-repeat: no-repeat;
-  height: 300px;
-  width: 100%;
+/* ----NAV ITEMS ---- */
+nav{
+  max-width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-size: cover;
 }
+nav img{
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+} 
 
 .nav-item {
   text-align: center;
   margin: 0 auto;
-  margin-top: -70px;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  margin-top: -90px;
+  display: flex;
 }
 .nav-item h2{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 36px;
+  font-size: 24px;
   color: var(--color);
   padding-top: 10px;
   display: inline-block;
   cursor: default;
 }
 .mode{
-  margin-left: 350px;
+  margin-left: 500px;
   display: inline-block;
   padding-top: 10px;
   cursor: pointer;
@@ -56,18 +64,25 @@ nav {
   font-size: 1.3rem;
 }
 
+main {
+	display: flex;
+  justify-content: center;
+	padding: 2rem 1.5rem;
+}
 /* --- To Do Container --- */
 .todo_container {
   position: relative;
   height: fit-content;
   margin: -130px auto 0;
-  max-width: 530px;
-  padding: 5px;
+  width: 100%;
+	max-width: 600px;
+  padding: 3px;
+  justify-content: center;
 }
 
 .todo_input{
   position: absolute;
-  top: 5px;
+  top: -25px;
   background-color: var(--color);
   height: fit-content;
   width: 100%;
@@ -94,11 +109,21 @@ nav {
 }
 .item_container{
   background-color: var(--color);
-  height: fit-content;
-  max-width: 530px;
+  max-height: 270px;
+  max-width: 600px;
   width: 100%;
-  margin-top: 90px;
+  margin-top: 70px;
   border-radius: 5px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0.5em; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 }
 button{
   outline: none;
@@ -108,13 +133,14 @@ button{
   color: var(--hover-color);
   padding: 10px;
   padding-left: 10px;
+  font-size: normal;
 }
-button:active{
+.one:active,
+.one:focus{
   color: var(--active-color);
 }
 button:hover{
   color: #000000;
-  font-size: 14px;
 }
 #item-count{
   margin-right: 120px;
@@ -144,13 +170,32 @@ ul li::before{
   top: 12px;
   left: 8px;
 }
+
 ul li.checked{
   color: var(--checked-color);
   text-decoration: line-through;
 }
+
 ul li.checked::before{
-  background-image: url(./images/checked.png);
+  content: url(./images/icon-check.svg);
+  background: linear-gradient(180deg, rgb(50, 50, 241), rgb(2, 229, 245));
 }
+
+.delete-icon {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--dark-color);
+  font-size: 15px;
+}
+
+ul li:hover .delete-icon {
+  display: block;
+}
+
 ul li span{
   position: absolute;
   right: 9px;
@@ -177,85 +222,12 @@ ul li span{
 }
 
 #filter-text{
-  margin: 10px 160px 30px;
+  margin-top: 10px;
   padding-top: 25px;
   color: var(--checked-color);
-  width: 100%;
+  max-width: 100%;
   cursor: default;
-}
-
-/*--- mobile view ---*/
-@media (min-width: 375px) and (min-height: 730px) {
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav {
-    background-image: url(/images/bg-mobile-light.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    width: 100%;
-  }
-  .todo_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 90%;
-    margin: -180px auto 0;
-  }
-  
-  .nav-item {
-    padding-top: 2px;
-    display: inline-block;
-    cursor: default;
-    margin-top: -120px;
-  }
-
-  .nav-item h2{
-    font-size: 27px;
-  }
-  .mode{
-  margin-left: 200px;
-  display: inline-block;
-  padding-top: 2px;
-  cursor: pointer;
-}
-  
-  .item_container {
-    width: 100%;
-    margin-top: 90px;
-    border-radius: 5px
-  }
-  
-  .filters {
-    margin: 0 auto;
-    padding: 0.5px;
-  }
-  
-  button {
-    padding: 5px;
-    padding-left: 1px;
-  } 
-  
-  #item-count{
-    margin-right: 5px;
-    padding-left: 2px;
-
-  }
-
-  #filter-text{
-    margin: 0 auto;
-    width: 100%;
-    align-items: center;
-    padding-left: 60px;
-  }
+  margin: 0 170px;
 }
 
 
@@ -264,9 +236,8 @@ body.darkmode{
   color: var(--dark-text-color);
   background-color: var(--dark-color);
 }
-.darkmode nav{
-  background-image: url(./images/bg-desktop-dark.jpg);
-  background-repeat: no-repeat;
+.darkmode nav img{
+  content: url(./images/bg-desktop-dark.jpg);
 }
 .darkmode .todo_input, .darkmode .item_container, .darkmode .filters{
   color: var(--dark-text-color);
@@ -283,14 +254,4 @@ body.darkmode{
 }
 .darkmode #input{
   color: var(--dark-text-back);
-}
-
-@media (min-width: 375px) and (min-height: 730px) {
-
-  .darkmode nav {
-    background-image: url(/images/bg-mobile-dark.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    width: 100%;
-  }
 }
