@@ -67,8 +67,9 @@ function addList(e) {
 
 
   if (input.value.trim() !== '') {
-    const taskText = document.createElement('span'); 
+    const taskText = document.createElement('p'); 
     taskText.textContent = input.value.trim(); 
+    taskText.classList.add('task-text');
     newLi.appendChild(taskText); 
     input.value = '';
 
