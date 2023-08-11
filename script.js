@@ -55,6 +55,9 @@ function addList(e) {
   checkboxContainer.classList.add('checkbox-container');
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+  const uniqueId = 'checkbox-' + Date.now();
+  checkbox.id = uniqueId;
+  checkboxContainer.setAttribute('for', uniqueId);
   const checkmark = document.createElement('span');
   checkmark.classList.add('checkmark');
 
@@ -62,8 +65,11 @@ function addList(e) {
   checkboxContainer.appendChild(checkmark);
   newLi.appendChild(checkboxContainer);
 
+
   if (input.value.trim() !== '') {
-    newLi.textContent = input.value.trim();
+    const taskText = document.createElement('span'); 
+    taskText.textContent = input.value.trim(); 
+    newLi.appendChild(taskText); 
     input.value = '';
 
     newLi.draggable = true;
@@ -78,6 +84,7 @@ function addList(e) {
     updateItemCount();
   }
 }
+
 
 active.addEventListener('click', function (e) {
     if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
@@ -103,13 +110,53 @@ active.addEventListener('click', function (e) {
 
 
 function saveTask() {
-  localStorage.setItem('data', active.innerHTML);
+  const tasks = [];
+  active.querySelectorAll("li").forEach(task => {
+    const taskText = task.querySelector("span").textContent;
+    const isChecked = task.classList.contains("checked");
+    tasks.push({ text: taskText, checked: isChecked });
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function loadTask() {
-  active.innerHTML = localStorage.getItem('data');
-  updateItemCount();
+  const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  active.innerHTML = '';
+  savedTasks.forEach(taskData => {
+    const newLi = document.createElement('li');
+    const checkboxContainer = document.createElement('label');
+    checkboxContainer.classList.add('checkbox-container');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'task-checkbox-' + taskData.id;
+    checkbox.checked = taskData.checked;
+    const checkmark = document.createElement('span');
+    checkmark.classList.add('checkmark');
+
+    checkbox.id = taskData.id;
+    checkboxContainer.setAttribute('for', taskData.id);
+
+    checkboxContainer.appendChild(checkbox);
+    checkboxContainer.appendChild(checkmark);
+    newLi.appendChild(checkboxContainer);
+
+    const taskText = document.createElement('span');
+    taskText.textContent = taskData.text;
+    newLi.appendChild(taskText);
+
+    newLi.draggable = true;
+    if (taskData.checked) {
+      newLi.classList.add('checked');
+    }
+
+    active.appendChild(newLi);
+    const deleteIcon = document.createElement('span');
+    deleteIcon.innerHTML = '<i class="fas fa-times"></i>';
+    deleteIcon.classList.add('delete-icon');
+    newLi.appendChild(deleteIcon);
+  });
 }
+
 
 function updateItemCount() {
   const activeTasks = active.querySelectorAll("li:not(.checked)");
