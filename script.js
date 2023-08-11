@@ -51,6 +51,16 @@ input.addEventListener('keyup', (e) => {
 
 function addList(e) {
   const newLi = document.createElement('li');
+  const checkboxContainer = document.createElement('label');
+  checkboxContainer.classList.add('checkbox-container');
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  const checkmark = document.createElement('span');
+  checkmark.classList.add('checkmark');
+
+  checkboxContainer.appendChild(checkbox);
+  checkboxContainer.appendChild(checkmark);
+  newLi.appendChild(checkboxContainer);
 
   if (input.value.trim() !== '') {
     newLi.textContent = input.value.trim();
@@ -70,6 +80,12 @@ function addList(e) {
 }
 
 active.addEventListener('click', function (e) {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
+    e.target.parentElement.parentElement.classList.toggle('checked');
+    saveTask();
+    updateItemCount();
+  }
+
   if (e.target.tagName === ("LI")) {
     e.target.classList.toggle("checked");
     saveTask();
@@ -117,30 +133,31 @@ clearBtn.addEventListener('click', function () {
 
 
 function filterTasks(type) {
-  const tasks = active.querySelectorAll("li");
+  const tasks = active.querySelectorAll('li');
 
-  if (type === "all") {
+  if (type === 'all') {
     tasks.forEach(task => {
-      task.style.display = "block";
+      task.style.display = 'block';
     });
-  } else if (type === "active") {
+  } else if (type === 'active') {
     tasks.forEach(task => {
-      if (task.classList.contains("checked")) {
-        task.style.display = "none";
+      if (task.classList.contains('checked')) {
+        task.style.display = 'none';
       } else {
-        task.style.display = "block";
+        task.style.display = 'block';
       }
     });
-  } else if (type === "completed") {
+  } else if (type === 'completed') {
     tasks.forEach(task => {
-      if (task.classList.contains("checked")) {
-        task.style.display = "block";
+      if (task.classList.contains('checked')) {
+        task.style.display = 'block';
       } else {
-        task.style.display = "none";
+        task.style.display = 'none';
       }
     });
   }
 }
+
 
 document.getElementById("all-btn").addEventListener("click", function () {
   filterTasks("all");
